@@ -1,4 +1,4 @@
-package Labo1;
+package labo1;
 
 public class MorseCode {
 

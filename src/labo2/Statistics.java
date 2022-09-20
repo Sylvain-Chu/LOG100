@@ -1,4 +1,4 @@
-package Labo2;
+package labo2;
 
 public class Statistics {
 
@@ -48,19 +48,11 @@ public class Statistics {
             }
         }
 
-        switch(choice) {
-            case 1:
-                System.out.println(elemCount(tab));
-                break;
-            case 2:
-                System.out.println(average(tab));
-                break;
-            case 3:
-                System.out.println(max(tab) + ", " + min(tab));
-                break;
-            default:
-                System.out.println("Invalid operation " + choice);
-                break;
+        switch (choice) {
+            case 1 -> System.out.println(elemCount(tab));
+            case 2 -> System.out.println(average(tab));
+            case 3 -> System.out.println(max(tab) + ", " + min(tab));
+            default -> System.out.println("Invalid operation " + choice);
         }
     }
 }

@@ -1,4 +1,4 @@
-package Labo2;
+package labo2;
 
 public class ArrayToolbox {
 
