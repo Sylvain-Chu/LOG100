@@ -24,6 +24,7 @@ public class MatrixToolbox {
             return new Double[][]{{Double.NaN}};
         }
 
+
         matC = new Double[ligne][colone];
 
         ligne = 0;
