@@ -51,9 +51,21 @@ public class Transcript {
 
         Grade[] grades = {g1, g2, g3, g4, g5, g6, g7};
 
-        System.out.println(getReport(grades));
-        System.out.println(getReport(grades, "LOG"));
-        System.out.println(getReport(grades, "MAT"));
-        System.out.println(Grade.getInstanceCount());
+//        System.out.println(getReport(grades));
+//        System.out.println(getReport(grades, "LOG"));
+//        System.out.println(getReport(grades, "MAT"));
+//        System.out.println(Grade.getInstanceCount());
+
+        int x = 0;
+        int y = 0;
+        while (x < 5) {
+            y = x - y;
+            System.out.print(x + "" + y + " ");
+            x += 1;
+        }
+
+
+
+
     }
 }
