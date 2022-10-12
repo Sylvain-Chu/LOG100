@@ -58,6 +58,16 @@ public class Vehicle {
         this.value = value;
     }
 
+    /**
+     *
+     * @param ownerName
+     * @param ownerAddress
+     * @param brand
+     * @param model
+     * @param licencePlate
+     * @param value
+     * @throws VehicleException
+     */
     protected Vehicle(String ownerName, String ownerAddress, String brand, String model, String licencePlate, float value) throws VehicleException {
         if (ownerName.isEmpty()) {
             throw new VehicleException("ownerName");

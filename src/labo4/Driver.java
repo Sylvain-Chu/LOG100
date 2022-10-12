@@ -4,6 +4,11 @@ import labo4.dt.*;
 
 public class Driver {
 
+    /**
+     *
+     * @param vehicles
+     * @return float
+     */
     public static float sumValues(Vehicle[] vehicles){
         float sum = 0;
         if (vehicles != null){
