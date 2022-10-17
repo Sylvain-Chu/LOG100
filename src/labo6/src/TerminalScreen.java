@@ -1,5 +1,7 @@
 package labo6.src;
 
+import java.util.List;
+
 public class TerminalScreen extends Observer {
     private Terminal terminal;
     private String screenName;
@@ -27,6 +29,13 @@ public class TerminalScreen extends Observer {
 
     @Override
     public void update() {
+        List<Flight> flights = terminal.getFlights();
+
+        System.out.println(screenName);
+
+        for (Flight flight : flights) {
+            System.out.println(flight);
+        }
 
     }
 

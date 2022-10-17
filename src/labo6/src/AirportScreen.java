@@ -1,5 +1,7 @@
 package labo6.src;
 
+import java.util.List;
+
 public class AirportScreen extends Observer {
 
     private Airport airport;
@@ -28,6 +30,12 @@ public class AirportScreen extends Observer {
 
     @Override
     public void update() {
+        List<Flight> flights = airport.getFlights();
 
+        System.out.println(screenName);
+
+        for (Flight flight : flights) {
+            System.out.println(flight);
+        }
     }
 }

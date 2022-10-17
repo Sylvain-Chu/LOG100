@@ -1,15 +1,12 @@
 package labo6.src;
 
-/**
- * The type Flight.
- */
 public class Flight {
     private String company;
     private int flightNumber;
     private String destination;
-    private Integer departureTime;
+    private int departureTime;
     private String gate;
-    private  String status;
+    private String status;
 
     public static final String ONTIME = "ON TIME";
     public static final String DELAYED = "DELAYED";
@@ -17,8 +14,7 @@ public class Flight {
     public static final String BOARDING = "BOARDING";
 
 
-
-    public Flight(String company, int flightNumber, String destination, Integer departureTime, String gate, String status) {
+    public Flight(String company, Integer flightNumber, String destination, int departureTime, String gate, String status) {
         this.company = company;
         this.flightNumber = flightNumber;
         this.destination = destination;
@@ -39,7 +35,7 @@ public class Flight {
         return flightNumber;
     }
 
-    public void setFlightNumber(int flightNumber) {
+    public void setFlightNumber(Integer flightNumber) {
         this.flightNumber = flightNumber;
     }
 
@@ -51,11 +47,11 @@ public class Flight {
         this.destination = destination;
     }
 
-    public Integer getDepartureTime() {
+    public int getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Integer departureTime) {
+    public void setDepartureTime(int departureTime) {
         this.departureTime = departureTime;
     }
 

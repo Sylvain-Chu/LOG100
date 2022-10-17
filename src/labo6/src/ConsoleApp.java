@@ -147,23 +147,89 @@ public class ConsoleApp {
         }
     }
 
-    /*
-     * TODO: Implement the following methods. You may add other methods as well.
+    /**
+     * Removes a flight based on user-provided information.
      */
-
     public void delayFlight() {
+        // Collect flight information from the console
+        System.out.print("Flight Number: ");
+        int flightNumber = scan.nextInt();
+
+        // Create an instance of Flight
+        Flight flight = airport.getFlight(flightNumber);
+
+        // Verify that the flight exists
+        if (flight != null) {
+            // Delay the flight
+            flight.setStatus(Flight.DELAYED);
+            System.out.print("The flight is delayed");
+        } else {
+            System.out.println("Flight not found.");
+        }
     }
 
+    /**
+     * Changes the status of a flight based on user-provided information.
+     */
     public void changeGate() {
+        //TODO implement this method
     }
 
+    /**
+     * Cancels a flight based on user-provided information.
+     */
     public void cancelFlight() {
+        // Collect flight information from the console
+        System.out.print("Flight Number: ");
+        int flightNumber = scan.nextInt();
+
+        // Create an instance of Flight
+        Flight flight = airport.getFlight(flightNumber);
+
+        // Verify that the flight exists
+        if (flight != null) {
+            // Cancel the flight
+            flight.setStatus(Flight.CANCELLED);
+            System.out.print("The flight is cancelled");
+        } else {
+            System.out.println("Flight not found.");
+        }
     }
 
+    /**
+     * Notifies the airport that a flight has arrived.
+     */
     public void notifyBoarding() {
+        // Collect flight information from the console
+        System.out.print("Flight Number: ");
+        int flightNumber = scan.nextInt();
+
+        // Create an instance of Flight
+        Flight flight = airport.getFlight(flightNumber);
+
+        // Verify that the flight exists
+        if (flight != null) {
+            // Notify the airport that the flight has arrived
+            flight.setStatus(Flight.BOARDING);
+            System.out.print("The flight is boarding");
+        } else {
+            System.out.println("Flight not found.");
+        }
     }
 
+    /**
+     * Removes a flight based on user-provided information.
+     */
     public void removeFlight() {
+        //TODO implement this method
+        System.out.print("Flight Number: ");
+        int flightNumber = scan.nextInt();
+        Flight flight = airport.getFlight(flightNumber);
+        if (flight != null) {
+
+        } else {
+            System.out.println("Flight not found.");
+        }
     }
 
     /**
@@ -213,6 +279,9 @@ public class ConsoleApp {
                 case 6:
                     removeFlight();
                     break;
+                case 7:
+                    displayFligts();
+                    break;
                 case 0:
                     scan.close();
                     break;
@@ -222,6 +291,10 @@ public class ConsoleApp {
                     return;
             }
         } while (option != 0); // While the option is not Quit
+    }
+
+    private void displayFligts() {
+        airport.getFlights().forEach(System.out::println);
     }
 
     /**
