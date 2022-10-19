@@ -226,7 +226,7 @@ public class ConsoleApp {
         int flightNumber = scan.nextInt();
         Flight flight = airport.getFlight(flightNumber);
         if (flight != null) {
-
+            airport.removeFlight(flight);
         } else {
             System.out.println("Flight not found.");
         }
@@ -279,9 +279,6 @@ public class ConsoleApp {
                 case 6:
                     removeFlight();
                     break;
-                case 7:
-                    displayFligts();
-                    break;
                 case 0:
                     scan.close();
                     break;
@@ -291,10 +288,6 @@ public class ConsoleApp {
                     return;
             }
         } while (option != 0); // While the option is not Quit
-    }
-
-    private void displayFligts() {
-        airport.getFlights().forEach(System.out::println);
     }
 
     /**

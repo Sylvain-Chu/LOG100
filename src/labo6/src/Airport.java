@@ -1,5 +1,6 @@
 package labo6.src;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Airport extends Subject {
@@ -7,18 +8,19 @@ public class Airport extends Subject {
     private List<Flight> flights;
 
     public Airport() {
+        this.flights = new LinkedList<Flight>();
     }
 
     @Override
     public void addFlight(Flight flight) {
         flights.add(flight);
-        super.notifyObservers();
+        notifyObservers();
     }
 
     @Override
     public void removeFlight(Flight flight) {
         flights.remove(flight);
-        super.notifyObservers();
+        notifyObservers();
     }
 
     @Override

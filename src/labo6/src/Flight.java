@@ -1,5 +1,6 @@
 package labo6.src;
 
+
 public class Flight {
     private String company;
     private int flightNumber;
@@ -13,8 +14,7 @@ public class Flight {
     public static final String CANCELLED = "CANCELLED";
     public static final String BOARDING = "BOARDING";
 
-
-    public Flight(String company, Integer flightNumber, String destination, int departureTime, String gate, String status) {
+    public Flight(String company, int flightNumber, String destination, int departureTime, String gate, String status) {
         this.company = company;
         this.flightNumber = flightNumber;
         this.destination = destination;
@@ -35,7 +35,7 @@ public class Flight {
         return flightNumber;
     }
 
-    public void setFlightNumber(Integer flightNumber) {
+    public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
     }
 
@@ -74,5 +74,10 @@ public class Flight {
     @Override
     public String toString() {
         return company + flightNumber + " " + destination + " " + departureTime + " " + gate + " " + status;
+    }
+
+    public static void main(String[] args) {
+        Flight flight = new Flight("KLM", 873, "NewYork", 0024, "A1", Flight.ONTIME);
+        System.out.println(flight.getDepartureTime());
     }
 }

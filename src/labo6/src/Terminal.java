@@ -1,5 +1,6 @@
 package labo6.src;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Terminal extends Subject {
@@ -10,6 +11,7 @@ public class Terminal extends Subject {
 
     public Terminal(String terminalName) {
         this.terminalName = terminalName;
+        this.flights = new LinkedList<Flight>();
     }
 
     public String getTerminalName() {
@@ -31,13 +33,13 @@ public class Terminal extends Subject {
     @Override
     public void addFlight(Flight flight) {
         flights.add(flight);
-        super.notifyObservers();
+        notifyObservers();
     }
 
     @Override
     public void removeFlight(Flight flight) {
         flights.remove(flight);
-        super.notifyObservers();
+        notifyObservers();
     }
 
     @Override

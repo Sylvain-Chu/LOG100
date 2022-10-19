@@ -30,11 +30,10 @@ public class GateScreen extends Observer{
     public void update() {
         List<Flight> flights = gate.getFlights();
 
-        System.out.println(screenName);
+        System.out.println("GATE " + this.getGate().getGateName());
 
         for (Flight flight : flights) {
             System.out.println(flight);
         }
-
     }
 }

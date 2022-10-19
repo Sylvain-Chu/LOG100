@@ -1,5 +1,6 @@
 package labo6.src;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Gate extends Subject{
@@ -17,6 +18,7 @@ public class Gate extends Subject{
 
     public Gate(String gateName) {
         this.gateName = gateName;
+        this.flights = new LinkedList<Flight>();
     }
 
     public Gate() {
@@ -25,13 +27,13 @@ public class Gate extends Subject{
     @Override
     public void addFlight(Flight flight) {
         flights.add(flight);
-        super.notifyObservers();
+        notifyObservers();
     }
 
     @Override
     public void removeFlight(Flight flight) {
         flights.remove(flight);
-        super.notifyObservers();
+        notifyObservers();
     }
 
     @Override
