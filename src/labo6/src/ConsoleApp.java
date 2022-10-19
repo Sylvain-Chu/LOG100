@@ -82,7 +82,6 @@ public class ConsoleApp {
     public void addFlight() {
 
         // Collect flight information from the console
-
         System.out.print("Company: ");
         String company = scan.next();
 
@@ -151,85 +150,149 @@ public class ConsoleApp {
      * Removes a flight based on user-provided information.
      */
     public void delayFlight() {
+        // Create an instance of Flight
+        Flight flight = getFlight();
+
+        flight.setStatus(Flight.DELAYED);
+        airport.notifyObservers();
+
+        String gate = flight.getGate();
+        String terminal = gate.substring(0, 1);
+        int gateNumber = Integer.parseInt(gate.substring(2));
+
+        notifyTerminalAndGate(terminal, gateNumber);
+    }
+
+    /**
+     * Notify the terminal and the gates of a flight's
+     */
+    private void notifyTerminalAndGate(String terminal, int gateNumber) {
+        // Notifie the appropriate terminal and gate
+        switch (terminal) {
+            case "A":
+                termA.notifyObservers();
+                gatesA[gateNumber - 1].notifyObservers();
+                break;
+            case "B":
+                termB.notifyObservers();
+                gatesB[gateNumber - 1].notifyObservers();
+                break;
+            case "C":
+                termC.notifyObservers();
+                gatesC[gateNumber - 1].notifyObservers();
+                break;
+        }
+    }
+
+    private Flight getFlight() {
         // Collect flight information from the console
+        System.out.print("Company: ");
+        String company = scan.next();
+
         System.out.print("Flight Number: ");
         int flightNumber = scan.nextInt();
 
         // Create an instance of Flight
-        Flight flight = airport.getFlight(flightNumber);
-
-        // Verify that the flight exists
-        if (flight != null) {
-            // Delay the flight
-            flight.setStatus(Flight.DELAYED);
-            System.out.print("The flight is delayed");
-        } else {
-            System.out.println("Flight not found.");
-        }
+        return airport.getFlight(company, flightNumber);
     }
 
     /**
      * Changes the status of a flight based on user-provided information.
      */
     public void changeGate() {
-        //TODO implement this method
+        Flight flight = getFlight();
+
+        System.out.print("Terminal (A, B, C): ");
+        String terminal = scan.next();
+
+        System.out.print("Gate Number: ");
+        int gateNumber = scan.nextInt();
+
+        String oldGate = flight.getGate();
+        int oldTerminal = oldGate.charAt(0);
+        int oldGateNumber = Integer.parseInt(oldGate.substring(2));
+
+        flight.setGate(terminal + "-" + gateNumber);
+
+        airport.notifyObservers();
+
+        if (oldTerminal != terminal.charAt(0)) {
+            switch (oldTerminal) {
+                case 'A':
+                    termA.removeFlight(flight);
+                    gatesA[oldGateNumber - 1].removeFlight(flight);
+                    break;
+                case 'B':
+                    termB.removeFlight(flight);
+                    gatesB[oldGateNumber - 1].removeFlight(flight);
+                    break;
+                case 'C':
+                    termC.removeFlight(flight);
+                    gatesC[oldGateNumber - 1].removeFlight(flight);
+                    break;
+            }
+        }
+
+        switch (terminal) {
+            case "A":
+                termA.addFlight(flight);
+                gatesA[gateNumber - 1].addFlight(flight);
+                break;
+            case "B":
+                termB.addFlight(flight);
+                gatesB[gateNumber - 1].addFlight(flight);
+                break;
+            case "C":
+                termC.addFlight(flight);
+                gatesC[gateNumber - 1].addFlight(flight);
+                break;
+        }
+
+
+//        notifyTerminalAndGate(terminal, gateNumber);
     }
 
     /**
      * Cancels a flight based on user-provided information.
      */
     public void cancelFlight() {
-        // Collect flight information from the console
-        System.out.print("Flight Number: ");
-        int flightNumber = scan.nextInt();
-
         // Create an instance of Flight
-        Flight flight = airport.getFlight(flightNumber);
+        Flight flight = getFlight();
 
-        // Verify that the flight exists
-        if (flight != null) {
-            // Cancel the flight
-            flight.setStatus(Flight.CANCELLED);
-            System.out.print("The flight is cancelled");
-        } else {
-            System.out.println("Flight not found.");
-        }
+        flight.setStatus(Flight.CANCELLED);
+        airport.notifyObservers();
+
+        String gate = flight.getGate();
+        String terminal = gate.substring(0, 1);
+        int gateNumber = Integer.parseInt(gate.substring(2));
+
+        notifyTerminalAndGate(terminal, gateNumber);
     }
 
     /**
      * Notifies the airport that a flight has arrived.
      */
     public void notifyBoarding() {
-        // Collect flight information from the console
-        System.out.print("Flight Number: ");
-        int flightNumber = scan.nextInt();
-
         // Create an instance of Flight
-        Flight flight = airport.getFlight(flightNumber);
+        Flight flight = getFlight();
 
-        // Verify that the flight exists
-        if (flight != null) {
-            // Notify the airport that the flight has arrived
-            flight.setStatus(Flight.BOARDING);
-            System.out.print("The flight is boarding");
-        } else {
-            System.out.println("Flight not found.");
-        }
+        flight.setStatus(Flight.BOARDING);
+        airport.notifyObservers();
+
+        String gate = flight.getGate();
+        String terminal = gate.substring(0, 1);
+        int gateNumber = Integer.parseInt(gate.substring(2));
+
+        notifyTerminalAndGate(terminal, gateNumber);
     }
 
     /**
      * Removes a flight based on user-provided information.
      */
     public void removeFlight() {
-        //TODO implement this method
-        System.out.print("Flight Number: ");
-        int flightNumber = scan.nextInt();
-        Flight flight = airport.getFlight(flightNumber);
-        if (flight != null) {
-            airport.removeFlight(flight);
-        } else {
-            System.out.println("Flight not found.");
-        }
+        Flight flight = getFlight();
+
+        airport.removeFlight(flight);
     }
 
     /**

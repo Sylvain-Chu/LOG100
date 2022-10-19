@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class Subject {
 
-    private List<Observer> listObservers = new LinkedList<Observer>();
+    public List<Observer> listObservers = new LinkedList<Observer>();
 
     public void attach(Observer o) {
         listObservers.add(o);

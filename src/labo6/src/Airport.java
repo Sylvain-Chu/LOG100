@@ -28,13 +28,12 @@ public class Airport extends Subject {
         return flights;
     }
 
-    public Flight getFlight(int flightNumber) {
+    public Flight getFlight(String company, int flightNumber) {
         for (Flight flight : flights) {
-            if (flight.getFlightNumber() == flightNumber) {
+            if (flight.getFlightNumber() == flightNumber && flight.getCompany().equals(company)) {
                 return flight;
             }
         }
         return null;
     }
-
 }

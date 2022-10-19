@@ -75,9 +75,4 @@ public class Flight {
     public String toString() {
         return company + flightNumber + " " + destination + " " + departureTime + " " + gate + " " + status;
     }
-
-    public static void main(String[] args) {
-        Flight flight = new Flight("KLM", 873, "NewYork", 0024, "A1", Flight.ONTIME);
-        System.out.println(flight.getDepartureTime());
-    }
 }

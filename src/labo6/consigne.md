@@ -82,11 +82,60 @@ Il est essentiel que toute l’information soit affichée correctement sur tous 
 
 
 
+***
+## Implémentation
+   Vous devrez faire des adaptations et des généralisations aux exemples présentés pour le patron Observateur.
 
+***
+### **Gabarit**
 
+Du code de base est fourni, avec les classes Observer, Subject, et ConsoleApp.
 
+Chaque sous-classe de la classe Observer (AirportScreen, TerminalScreen, GateScreen) doit fournir sa propre implémentation de la méthode update. Cette méthode doit :
+1. obtenir la liste des vols de l’objet du sous-type Subject que la classe observe (l’aéroport, un terminal ou une porte d’embarquement)
+2. afficher le nom de l’écran (par exemple, "AIRPORT (1)" ou “GATE B-2”)
+3. traverser la liste des vols pour afficher chaque vol, ligne par ligne et dans l’ordre dans lequel ils ont été ajoutés, avec des appels aux méthodes toString
+   
+Les sous-classes de la classe Subject (Airport, Terminal, Gate) possèdent chacune une liste de vols. Elles doivent implémenter les trois méthodes abstraites.
 
+La méthode addFlight :
 
+1. ajoute un vol à la fin de la liste des vols présente dans chaque sous-classe de Subject
+2. notifie tous les objets observateurs d’un changement
+
+La méthode removeFlight :
+
+1. supprime le vol passé en paramètre de la liste des vols
+2. notifie tous les objets observateurs d’un changement
+
+La méthode getFlights retourne une référence vers la liste des vols.
+
+***
+### **Développement**
+   
+   
+Complétez la classe ConsoleApp pour faire l’implémentation des six options de changement d’état. Implémentez chaque opération dans une méthode de la classe. Regardez la méthode addFlight pour un exemple de l’implémentation de la première opération. Utilisez la configuration de l’aéroport déjà implémentée dans ce fichier.
+   
+Après le choix de l’option, on demande à l’utilisateur d’entrer, dans l’ordre, le nom abrégé de la compagnie (par exemple, AC), puis le numéro de vol. Pour l’option Change Gate, on demandera aussi le nouveau terminal (A, B, ou C) et la nouvelle porte. Vous utiliserez les mêmes messages affichés dans la console pour demander l’information à l’utilisateur que dans l’exemple addFlight.
+   
+Comme dans addFlight, on fera les mises-à-jour dans l’ordre suivant : d’abord au niveau de l’aéroport, puis du terminal, et enfin de la porte d’embarquement. Si plusieurs terminaux / portes sont impliqués, on mettra d’abord à jour les sujets ayant perdu un vol, puis les autres.
+
+   
+Pour éviter d’avoir des méthodes trop longues, on va surcharger chaque méthode des opérations avec des paramètres représentant l’information autrement issue de la console. Par exemple, on crée la méthode surchargée addFlight(String company, int flightNumber, String destination, int departureTime, String terminal, int gateNumber, String status). Le reste de la fonctionnalité de chaque méthode est identique à la méthode sans paramètre. Lors de ce processus, on s’assurera d’éviter la répétition de code.
+   
+Ces surcharges vous permettront d’éviter d’avoir à entrer chaque fois l’information dans la console en définissant une séquence d’appels aux méthodes ci-dessus pour faire vos propres tests avec un scénario prédéfini, à l’aide du débogueur si nécessaire.
+
+   
+Pour simplifier votre implémentation, on a défini une classe pour le rôle d’observateur et une classe pour le rôle de sujet pour chaque type d’écran considéré dans ce projet.
+   
+Par exemple, les instances de votre classe TerminalScreen doivent observer les changements des vols d’un terminal (Terminal). Similairement, votre classe Airport doit contenir l’information de tous les vols, et tous ses changements doivent être observés directement par les écrans consacrés à l’information de l’aéroport.
+   
+Suivez les conventions montrées pour la définition des noms de vos classes et méthodes. Pour ce prototype, vous pouvez assumer que toutes les données sont correctes, c’est-à-dire qu’il n’est pas nécessaire de considérer la détection des erreurs ou la gestion d’exceptions.
+   
+Important
+
+   Un objectif de ce projet est de minimiser les mises à jour des observateurs. Cela implique pour votre programme de notifier seulement les observateurs qui observent les sujets qui ont changés.
+   
 
 
 

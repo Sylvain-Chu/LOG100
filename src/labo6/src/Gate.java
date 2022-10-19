@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Gate extends Subject{
+
     private String gateName;
 
     private List<Flight> flights;
