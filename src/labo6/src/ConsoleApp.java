@@ -2,22 +2,62 @@ package labo6.src;
 
 import java.util.Scanner;
 
+/**
+ * @author CHURLET Sylvain
+ */
 public class ConsoleApp {
 
     /*
      * Simulation attributes
      * DO NOT EDIT
      */
-
+    /**
+     * Scanner
+     */
     private Scanner scan = new Scanner(System.in);
 
+    /**
+     * The airport
+     */
     private Airport airport = new Airport();
+    /**
+     * The terminal A
+     */
     private Terminal termA = new Terminal("TERMINAL A");
+    /**
+     * The terminal B
+     */
     private Terminal termB = new Terminal("TERMINAL B");
+    /**
+     * The terminal C
+     */
     private Terminal termC = new Terminal("TERMINAL C");
+    /**
+     * The Gates A
+     */
     private Gate[] gatesA = new Gate[3];
+    /**
+     * The Gates B
+     */
     private Gate[] gatesB = new Gate[7];
+    /**
+     * The Gates C
+     */
     private Gate[] gatesC = new Gate[5];
+
+    /**
+     * Creates all the objects and starts the simulation.
+     * DO NOT EDIT
+     */
+    public static void main(String[] args) {
+        ConsoleApp app = new ConsoleApp();
+
+        // Object setup
+        app.createObjects();
+
+        // Start the simulation
+        app.displayPrompt();
+    }
 
     /**
      * Creates the objects used for the simulation.
@@ -184,6 +224,10 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Gets a flight based on user-provided information.
+     * @return The flight find
+     */
     private Flight getFlight() {
         // Collect flight information from the console
         System.out.print("Company: ");
@@ -209,47 +253,94 @@ public class ConsoleApp {
         int gateNumber = scan.nextInt();
 
         String oldGate = flight.getGate();
-        int oldTerminal = oldGate.charAt(0);
+        char oldTerminal = oldGate.charAt(0);
         int oldGateNumber = Integer.parseInt(oldGate.substring(2));
 
         flight.setGate(terminal + "-" + gateNumber);
+        if(isGateAvailable(terminal, gateNumber)) {
+            if (oldTerminal != terminal.charAt(0)) {
+                switch (oldTerminal) {
+                    case 'A':
+                        termA.removeFlight(flight);
+                        gatesA[oldGateNumber - 1].removeFlight(flight);
+                        break;
+                    case 'B':
+                        termB.removeFlight(flight);
+                        gatesB[oldGateNumber - 1].removeFlight(flight);
+                        break;
+                    case 'C':
+                        termC.removeFlight(flight);
+                        gatesC[oldGateNumber - 1].removeFlight(flight);
+                        break;
+                }
 
-        airport.notifyObservers();
+                airport.notifyObservers();
 
-        if (oldTerminal != terminal.charAt(0)) {
-            switch (oldTerminal) {
-                case 'A':
-                    termA.removeFlight(flight);
-                    gatesA[oldGateNumber - 1].removeFlight(flight);
-                    break;
-                case 'B':
-                    termB.removeFlight(flight);
-                    gatesB[oldGateNumber - 1].removeFlight(flight);
-                    break;
-                case 'C':
-                    termC.removeFlight(flight);
-                    gatesC[oldGateNumber - 1].removeFlight(flight);
-                    break;
+                switch (terminal) {
+                    case "A":
+                        termA.addFlight(flight);
+                        gatesA[gateNumber - 1].addFlight(flight);
+                        break;
+                    case "B":
+                        termB.addFlight(flight);
+                        gatesB[gateNumber - 1].addFlight(flight);
+                        break;
+                    case "C":
+                        termC.addFlight(flight);
+                        gatesC[gateNumber - 1].addFlight(flight);
+                        break;
+                }
+
+            } else {
+
+                switch (oldTerminal) {
+                    case 'A':
+                        gatesA[oldGateNumber - 1].removeFlight(flight);
+                        break;
+                    case 'B':
+                        gatesB[oldGateNumber - 1].removeFlight(flight);
+                        break;
+                    case 'C':
+                        gatesC[oldGateNumber - 1].removeFlight(flight);
+                        break;
+                }
+
+                airport.notifyObservers();
+
+                switch (terminal) {
+                    case "A":
+                        termA.notifyObservers();
+                        gatesA[gateNumber - 1].addFlight(flight);
+                        break;
+                    case "B":
+                        termB.notifyObservers();
+                        gatesB[gateNumber - 1].addFlight(flight);
+                        break;
+                    case "C":
+                        termC.notifyObservers();
+                        gatesC[gateNumber - 1].addFlight(flight);
+                        break;
+                }
             }
         }
-
-        switch (terminal) {
-            case "A":
-                termA.addFlight(flight);
-                gatesA[gateNumber - 1].addFlight(flight);
-                break;
-            case "B":
-                termB.addFlight(flight);
-                gatesB[gateNumber - 1].addFlight(flight);
-                break;
-            case "C":
-                termC.addFlight(flight);
-                gatesC[gateNumber - 1].addFlight(flight);
-                break;
+        else {
+            System.out.println("New gate" + terminal + "-" + gateNumber + " is not available");
         }
+    }
 
-
-//        notifyTerminalAndGate(terminal, gateNumber);
+    /**
+     * Verifies if a gate is available
+     * @param terminal The terminal
+     * @param gateNumber The gate number
+     * @return True if the gate is available, false otherwise
+     */
+    private boolean isGateAvailable(String terminal, int gateNumber) {
+        for (Flight f : airport.getFlights()){
+            if (f.getGate().equals(terminal + "-" + gateNumber)){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -292,7 +383,27 @@ public class ConsoleApp {
     public void removeFlight() {
         Flight flight = getFlight();
 
+        String gate = flight.getGate();
+        String terminal = gate.substring(0, 1);
+        int gateNumber = Integer.parseInt(gate.substring(2));
+
         airport.removeFlight(flight);
+
+        switch (terminal) {
+            case "A":
+                termA.removeFlight(flight);
+                gatesA[gateNumber - 1].removeFlight(flight);
+                break;
+            case "B":
+                termB.removeFlight(flight);
+                gatesB[gateNumber - 1].removeFlight(flight);
+                break;
+            case "C":
+                termC.removeFlight(flight);
+                gatesC[gateNumber - 1].removeFlight(flight);
+                break;
+        }
+
     }
 
     /**
@@ -351,20 +462,6 @@ public class ConsoleApp {
                     return;
             }
         } while (option != 0); // While the option is not Quit
-    }
-
-    /**
-     * Creates all the objects and starts the simulation.
-     * DO NOT EDIT
-     */
-    public static void main(String[] args) {
-        ConsoleApp app = new ConsoleApp();
-
-        // Object setup
-        app.createObjects();
-
-        // Start the simulation
-        app.displayPrompt();
     }
 
 }
