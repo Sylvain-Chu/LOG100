@@ -257,6 +257,7 @@ public class ConsoleApp {
         int oldGateNumber = Integer.parseInt(oldGate.substring(2));
 
         flight.setGate(terminal + "-" + gateNumber);
+
         if(isGateAvailable(terminal, gateNumber)) {
             if (oldTerminal != terminal.charAt(0)) {
                 switch (oldTerminal) {
@@ -335,12 +336,15 @@ public class ConsoleApp {
      * @return True if the gate is available, false otherwise
      */
     private boolean isGateAvailable(String terminal, int gateNumber) {
-        for (Flight f : airport.getFlights()){
-            if (f.getGate().equals(terminal + "-" + gateNumber)){
-                return false;
-            }
+        switch (terminal) {
+            case "A":
+                return gatesA[gateNumber - 1].isAvailable();
+            case "B":
+                return gatesB[gateNumber - 1].isAvailable();
+            case "C":
+                return gatesC[gateNumber - 1].isAvailable();
         }
-        return true;
+        return false;
     }
 
     /**

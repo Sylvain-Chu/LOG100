@@ -78,4 +78,7 @@ public class Gate extends Subject{
         return flights;
     }
 
+    public boolean isAvailable() {
+        return flights.isEmpty();
+    }
 }
